@@ -18,6 +18,7 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = (ChoiceInline, )
     list_display = ['html', 'is_published']
     list_filter = ['is_published']
+    search_fields = ['html', 'choices__html']
     actions = None
     form = QuestionForm
 

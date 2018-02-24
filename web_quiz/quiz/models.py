@@ -45,6 +45,25 @@ class QuizProfile(TimeStampedModel):
         attempted_question = AttemptedQuestion(question=question, quiz_profile=self)
         attempted_question.save()
 
+    def evaluate_attempt(self, attempted_question, selected_choice):
+        if attempted_question.question_id != selected_choice.question_id:
+            return
+
+        attempted_question.selected_choice = selected_choice
+        if selected_choice.is_correct is True:
+            attempted_question.is_correct = True
+            attempted_question.marks_obtained = attempted_question.question.maximum_marks
+
+        attempted_question.save()
+        self.update_score()
+
+    def update_score(self):
+        marks_sum = self.attempts.filter(is_correct=True).aggregate(
+            models.Sum('marks_obtained'))['marks_obtained__sum']
+        self.total_score = marks_sum or 0
+        self.save()
+
+
 
 class AttemptedQuestion(TimeStampedModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

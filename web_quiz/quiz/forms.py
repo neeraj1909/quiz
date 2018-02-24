@@ -25,6 +25,7 @@ class ChoiceInlineFormset(forms.BaseInlineFormSet):
         super(ChoiceInlineFormset, self).clean()
 
         correct_choices_count = 0
+
         for form in self.forms:
             if not form.is_valid():
                 return

@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
     url(r'', include('quiz.urls')),
+    #url('login/', LoginView.as_view(), name='login'),
+    #url('logout/', LogoutView.as_view(), name='logout'),
 ]

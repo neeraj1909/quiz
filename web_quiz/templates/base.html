@@ -1,84 +1,65 @@
-{% load static %}
+<!-- {% load static %} -->
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Quiz App</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} {% endblock title %}</title>
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <style>
-        body {
-            padding-top: 50px;
-            padding-bottom: 20px;
-        }
-    </style>
-    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Rubik" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Rubik" rel="stylesheet">
+
+  <!--   <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% block css %}
-    {% endblock css %}
+    {% endblock css %} -->
 
-
-    <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
 </head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Quiz Home</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            {% if not request.user.is_active %}
-            <form class="navbar-form navbar-right" role="form" action="/login/" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="username" placeholder="Username" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-            {% else %}
-            <div class="navbar-form navbar-right">
-                <span>Welcome, {{ request.user.username }}!</span> |
-                <a href="/logout/">Logout</a>
+<body class="bg-white">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <h1><a href="{% url 'quiz:home' %}" class="navbar-brand">
+            <strong>Quiz-App</strong></a></h1>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse justify-content-end " id="navbar">
+                {% if not request.user.is_active %}
+                <a href="{% url 'quiz:leaderboard' %}" class="btn btn-info mt-1 mx-1">Leaderboard</a>
+                <a href="{% url 'quiz:login' %}" class="btn btn-success mt-1 ml-2"><i class="fa fa-sign-in" aria-hidden="true"></i> Log In</a>
+                {% else %}
+                <h6 class="text-white mt-2 mr-2">Welcome, {{ request.user.username }}</h6>
+                <h6 class="text-light mt-2 mr-2">|</h6>
+                <h6 class="text-white mt-2 mr-2"><a href="{% url 'quiz:leaderboard' %}" class="text-info">Leaderboard</a></h6>
+                <h6 class="text-light mt-2 mr-2">|</h6>
+                <h6 class="mt-2"><a href="{% url 'quiz:play' %}" class="text-white">Let's play</a></h6>
+                <a href="{% url 'quiz:logout' %}" class="btn btn-danger mt-1 ml-4">Log Out <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                {% endif %}
             </div>
+        </div>
 
-            {% endif %}
-        </div><!--/.navbar-collapse -->
-    </div>
-</nav>
+    </nav>
 
-
-<div class="container">
-
-    {% block content %}{% endblock content %}
-    <hr>
-
-    <footer>
-        <p>&copy; Company 2015</p>
+    {% block content %}
+    {% endblock content %}
+    <footer class="bg-light text-muted py-0">
+        <div class="container py-4">
+            <ul class="list-inline mb-0 text-center">
+                <li class="list-inline-item">&copy; 2018 Let's Quiz.</li>
+                <li class="list-inline-item">All rights reserved.</li>
+            </ul>
+        </div>
     </footer>
-</div> <!-- /container -->
+    <!-- jQuery first, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="{% static '
-js / vendor / jquery - 1.11
-.2.min.js
-' %}"><\/script>'
-)</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/12.1.5/js/smooth-scroll.min.js" integrity="sha256-MMt0/21G3z0Zg4ET1kI3HC9npItDowkitRDVr0FhCxA=" crossorigin="anonymous"></script>
 
-<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-{% block js %}{% endblock js %}
+    <!-- <script src="{% static 'js/main.js' %}"></script>
+    {% block js %}{% endblock js %} -->
 </body>
 </html>

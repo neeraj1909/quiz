@@ -21,12 +21,12 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!j4-_%()ex&px!6!g7&e+hm9ug#vx&-ipch05=)@+7-^4qg9ua'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['127.0.0.1', 'playquiz.pythonanywhere.com']
+DEBUG = bool(int(os.getenv('DEBUG', False)))
+ 
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 
 # Application definition
@@ -80,10 +80,15 @@ WSGI_APPLICATION = 'web_quiz.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'NAME': os.getenv('DATABASE_NAME'),
     }
 }
+
 
 
 # Password validation

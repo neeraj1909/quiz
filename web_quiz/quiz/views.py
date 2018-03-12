@@ -85,16 +85,16 @@ def login_view(request):
 
 def register(request):
     title = "Create account"
+
+    form = RegistrationForm(request.POST)
+    
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/login')
-    else:
-        form = RegistrationForm()
 
-        context = {'form': form, 'title': title}
-        return render(request, 'quiz/registration.html', context=context)
+    context = {'form': form, 'title': title}
+    return render(request, 'quiz/registration.html', context=context)
 
 
 def logout_view(request):

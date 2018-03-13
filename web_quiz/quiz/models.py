@@ -17,6 +17,9 @@ class Question(TimeStampedModel):
     def __str__(self):
         return self.html
 
+    def get_correct_choice(self):
+        return self.choices.filter(is_correct=True).first()
+
 
 class Choice(TimeStampedModel):
     MAX_CHOICES_COUNT = 4

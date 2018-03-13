@@ -15,6 +15,7 @@
 		<h4 class="text-success">Yayy!! Your answer is correct. High Five! 🙌</h4>
 		{% else %}
 		<h4 class="text-danger">Your answer is incorrect 😟</h4>
+		<p>Correct answer was: {{ attempted_question.question.get_correct_choice.html|safe }}</p>
 		{% endif %}
 
 		<a class="btn btn-info" href="{% url 'quiz:play' %}">Show next question</a>

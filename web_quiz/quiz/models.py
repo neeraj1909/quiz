@@ -63,6 +63,12 @@ class QuizProfile(TimeStampedModel):
         self.total_score = marks_sum or 0
         self.save()
 
+    def total_attempts_count(self):
+        return self.attempts.count()
+
+    def correct_attempts_count(self):
+        return self.attempts.filter(is_correct=True).count()
+
 
 
 class AttemptedQuestion(TimeStampedModel):
@@ -74,3 +80,4 @@ class AttemptedQuestion(TimeStampedModel):
 
     def get_absolute_url(self):
         return f'/submission-result/{self.pk}/'
+

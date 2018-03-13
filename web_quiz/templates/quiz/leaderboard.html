@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block title %} Let's Quiz | Leaderboard {% endblock title %}
 {% block content %}
 <div class="container">
@@ -9,6 +10,9 @@
                 <th>Position</th>
                 <th>Username</th>
                 <th>Score</th>
+                <th>Total Attempts</th>
+                <th>Correct Attempts</th>
+                <th>Last active</th>
             </tr>
         </thead>
         <tbody>
@@ -17,9 +21,13 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ quiz_profile.user.username }}</td>
                 <td>{{ quiz_profile.total_score }}</td>
+                <td>{{ quiz_profile.total_attempts_count }}</td>
+                <td>{{ quiz_profile.correct_attempts_count }}</td>
+                <td>{{ quiz_profile.modified|naturaltime }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 {% endblock content %}
+

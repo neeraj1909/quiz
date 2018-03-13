@@ -12,6 +12,7 @@
                 <th>Score</th>
                 <th>Total Attempts</th>
                 <th>Correct Attempts</th>
+                <th>Success rate</th>
                 <th>Last active</th>
             </tr>
         </thead>
@@ -21,8 +22,9 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ quiz_profile.user.username }}</td>
                 <td>{{ quiz_profile.total_score }}</td>
-                <td>{{ quiz_profile.total_attempts_count }}</td>
-                <td>{{ quiz_profile.correct_attempts_count }}</td>
+                <td>{{ quiz_profile.total_attempts }}</td>
+                <td>{{ quiz_profile.correct_attempts }}</td>
+                <td>{{ quiz_profile.success_rate|floatformat:2 }}%</td>
                 <td>{{ quiz_profile.modified|naturaltime }}</td>
             </tr>
             {% endfor %}

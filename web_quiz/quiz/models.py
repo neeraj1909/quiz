@@ -1,5 +1,7 @@
 import random
 from django.db import models
+from django.db.models import F, Q, Count, Sum, Case, When
+from django.db.models.functions import Cast
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from model_utils.models import TimeStampedModel
@@ -63,12 +65,21 @@ class QuizProfile(TimeStampedModel):
         self.total_score = marks_sum or 0
         self.save()
 
-    def total_attempts_count(self):
-        return self.attempts.count()
-
-    def correct_attempts_count(self):
-        return self.attempts.filter(is_correct=True).count()
-
+    @classmethod
+    def get_rankings(cls):
+        rankings = QuizProfile.objects.select_related(
+            'user',
+        ).annotate(
+            total_attempts=Count('attempts'),
+            correct_attempts=Sum(Case(When(attempts__is_correct=True, then=1), default=0, output_field=models.IntegerField())),
+            success_rate=Cast(100.0 * F('correct_attempts') / F('total_attempts'), models.FloatField())
+        ).order_by(
+            '-total_score',
+            '-correct_attempts',
+            '-success_rate',
+            'created'
+        )
+        return rankings
 
 
 class AttemptedQuestion(TimeStampedModel):

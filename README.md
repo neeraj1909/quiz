@@ -72,11 +72,11 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-#### 8. Run development server
+#### 7. Run development server
 ```bash
 python manage.py runserver
 ```
-#### 5. Implementation of Timer
+#### 8. Implementation of Timer
 *TODO - Implementation of timer for the quiz still have to be done.*
 
 ### Contribute

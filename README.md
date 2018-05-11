@@ -76,7 +76,7 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
-
+#### 5. Implementation of Timer
 *TODO - Implementation of timer for the quiz still have to be done.*
 
 ### Contribute
@@ -87,13 +87,8 @@ python manage.py runserver
 ### Contributors
 ----------
 
-* [Neeraj Singh](https://github.com/neeraj1909)
+* [Neeraj Kumar Singh](https://github.com/neeraj1909)
 
-
-### Support
-----------
-* If you are having issues, please let us know.<gr>
-We have a mailing list located at: bietquiz@gmail.com
 
 ### License
 ----------
